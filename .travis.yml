@@ -12,16 +12,8 @@ matrix:
           env: TOXENV=py27 VERSION=2.7.13
         - python: 3.3
           env: TOXENV=py33 VERSION=3.3.6
-        - python: 3.4
-          env: TOXENV=py34 VERSION=3.4.6
-        - python: 3.5
-          env: TOXENV=py35 VERSION=3.5.3
         - python: 3.6
           env: TOXENV=py36 VERSION=3.6.0
-        - python: pypy
-          env: TOXENV=pypy PYPY_VERSION=4.0.1
-        - python: pypy
-          env: TOXENV=pypy PYPY_VERSION=5.6.0
         - python: 2.7
           env: TOXENV=docs VERSION=2.7.13
           addons:
@@ -54,10 +46,6 @@ matrix:
           os: osx
           osx_image: xcode8.1
           env: TOXENV=py36  VERSION=3.6.0
-        - language: generic
-          os: osx
-          osx_image: xcode8.1
-          env: TOXENV=pypy-nocoverage  PYPY_VERSION=5.6.0
         - language: generic
           os: osx
           osx_image: xcode8.1
