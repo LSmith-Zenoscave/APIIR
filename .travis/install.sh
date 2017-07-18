@@ -2,7 +2,7 @@
 set -e
 set -x
 
-if [[ "$(uname -s)" == 'Darwin' ]]; then
+if [[ "$(uname -s)" == "Darwin" ]]; then
     sw_vers
     brew update && brew upgrade pyenv
     PYENV_ROOT="$HOME/.pyenv"
@@ -13,22 +13,6 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
         py27)
             curl -O https://bootstrap.pypa.io/get-pip.py
             python get-pip.py --user
-            ;;
-        py33)
-            pyenv install 3.3.6
-            pyenv global 3.3.6
-            ;;
-        py34)
-            pyenv install 3.4.5
-            pyenv global 3.4.5
-            ;;
-        py35)
-            pyenv install 3.5.2
-            pyenv global 3.5.2
-            ;;
-        py36)
-            pyenv install 3.6.0
-            pyenv global 3.6.0
             ;;
         pypy3)
             pyenv install pypy3-2.4.0
@@ -43,18 +27,22 @@ if [[ "$(uname -s)" == 'Darwin' ]]; then
             curl -O https://bootstrap.pypa.io/get-pip.py
             python get-pip.py --user
             ;;
+        *)
+            pyenv install ${VERSION}
+            pyenv global ${VERSION}
+            ;;
     esac
+
     pyenv rehash
     python -m pip install --user virtualenv coverage
 else
     # temporary pyenv installation to get latest pypy until the travis
     # container infra is upgraded
 
-    curl -L https://raw.githubusercontent.com/yyuu/pyenv-installer/master/bin/pyenv-installer | bash
-    PYENV_ROOT="$HOME/.pyenv"
+    PYENV_ROOT="$HOME/.travis-pyenv"
+    curl -L https://raw.githubusercontent.com/pyenv/pyenv-installer/master/bin/pyenv-installer | bash
     PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
-    pyenv update
 
     if [[ "${TOXENV}" = pypy3* ]]; then
         pyenv install "pypy3-$PYPY_VERSION"
@@ -67,6 +55,7 @@ else
         pyenv global "${VERSION}"
     fi
 
+    pyenv rehash
     pip install virtualenv coverage
 fi
 
