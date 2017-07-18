@@ -1,5 +1,5 @@
-Mal-Py main package: `malpy`
-============================
+APIIR main package: `apiir`
+===========================
 
 Module contents
 ---------------
