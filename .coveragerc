@@ -1,0 +1,10 @@
+[run]
+branch = True
+source =
+    apiir
+
+[paths]
+source =
+   src/apiir
+   .tox/*/lib/python*/site-packages/apiir
+   .tox/pypy/site-packages/apiir

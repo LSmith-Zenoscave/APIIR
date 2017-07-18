@@ -1,0 +1,5 @@
+coverage
+nose
+tox >= 2.4.1
+-e .[test,doctest,pep8test]
+-r requirements.txt
