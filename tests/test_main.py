@@ -24,7 +24,10 @@ class TestAPIIR(object):
     def test_it_runs(self):
         raised = False
         try:
-            main()
+            main(testing=True)
+            main([], testing=True)
+            main(['-h'], testing=True)
+            main(['-p', '8080'], testing=True)
         except:
             raised = True
         assert_false(raised, "Should Always run")
@@ -34,7 +37,7 @@ class TestAPIIR(object):
             raised = False
             inputs = fuzz()
             try:
-                main(inputs)
+                main(inputs, testing=True)
             except:
                 raised = True
             assert_false(raised,

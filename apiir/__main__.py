@@ -8,13 +8,17 @@ from __future__ import print_function
 import getopt
 import sys
 
+import cherrypy
+
+from apiir.server import Server
+
 
 class Usage(Exception):
     def __init__(self, msg):
         self.msg = msg
 
 
-def call(opts, args):
+def call(testing, opts, args):
     """main loop
 
     return:
@@ -26,10 +30,26 @@ def call(opts, args):
     for arg in args:
         pass
 
+    Server(opts.get('port', 8080))
+
+    engine = cherrypy.engine
+    engine.signals.subscribe()
+    if testing:
+        cherrypy.server.unsubscribe()
+
+    if hasattr(engine, "signal_handler"):
+        engine.signal_handler.subscribe()
+
+    if hasattr(engine, "console_control_handler"):
+        engine.console_control_handler.subscribe()
+
+    engine.start()
+    if not testing:
+        engine.block()
     return 0
 
 
-def main(argv=None):
+def main(argv=None, testing=False):
     """main runner
 
     return:
@@ -40,11 +60,11 @@ def main(argv=None):
         argv = sys.argv
     try:
         try:
-            opts, args = getopt.getopt(argv[1:], "h", ["help"])
+            opts, args = getopt.getopt(argv[1:], "hp:", ["help", "port="])
         except getopt.error as msg:
             raise Usage(msg)
 
-        return call(opts, args)
+        return call(testing, opts, args)
 
     except Usage as err:
         print(err.msg, file=sys.stderr)
