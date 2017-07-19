@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 # coding=utf-8
-
 """The APIIR translator main script
 
 """
@@ -41,7 +40,7 @@ def main(argv=None):
         argv = sys.argv
     try:
         try:
-            opts, args = getopt.getopt(argv[1:], "hm:", ["help", "memory="])
+            opts, args = getopt.getopt(argv[1:], "h", ["help"])
         except getopt.error as msg:
             raise Usage(msg)
 

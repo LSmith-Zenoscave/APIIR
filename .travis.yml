@@ -22,7 +22,7 @@ matrix:
                       - libenchant-dev
         - python: 2.7
           env: TOXENV=pep8 VERSION=2.7.13
-        - python: 3.4
+        - python: 3.6
           env: TOXENV=py3pep8 VERSION=3.6.0
         - language: generic
           os: osx
