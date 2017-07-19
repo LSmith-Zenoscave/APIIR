@@ -31,7 +31,9 @@ config = {
     'packages': [
         'apiir'
     ],
-    'install_requires': [],
+    'install_requires': [
+        'cherrypy'
+    ],
     'tests_require': [
         'pytest',
         'nose'
